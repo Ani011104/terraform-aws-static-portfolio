@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-light-300 font-sans antialiased selection:bg-primary selection:text-dark-900;
+    background-color: #050505;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-dark-800/60 backdrop-blur-md border border-light-100/10;
+  }
+
+  .glass-hover {
+    @apply hover:bg-dark-800/80 hover:border-primary/30 transition-all duration-300;
+  }
+
+  /* Interactive Spotlight Grid Background - Fixed & Accurate */
+  .spotlight-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    background-color: #050505;
+    /* Base Grid - Sharper lines */
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .spotlight-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* Spotlight Gradient - Smoother falloff */
+    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.12),
+        /* Bright center */
+        rgba(255, 255, 255, 0.06) 20%,
+        rgba(255, 255, 255, 0.02) 40%,
+        transparent 70%);
+    z-index: 1;
+  }
+
+  .spotlight-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* Noise texture */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    z-index: 2;
+  }
+}
