@@ -1,12 +1,14 @@
 # AWS Static Portfolio Website Hosting with Terraform
 
-This project demonstrates how to host a static Portfolio website on AWS using Terraform. It provisions an S3 bucket for storage and a CloudFront distribution for content delivery (CDN), ensuring secure and fast access to the website.
+This project demonstrates how to host a static Portfolio website on AWS using Terraform. It provisions an S3 bucket for storage and a CloudFront distribution for content delivery (CDN), ensuring secure and fast access to the website. It also uses ACM to manage SSL/TLS certificates for the website and Route 53 to manage DNS records for the website.
 
 ## Architecture
 
 - **AWS S3**: Stores the static assets (HTML, CSS, JS, Images) of the Portfolio website.
 - **AWS CloudFront**: Acts as a CDN to cache and serve the content globally with low latency. It also handles SSL/TLS termination (HTTPS).
 - **Origin Access Control (OAC)**: Restricts access to the S3 bucket so that only the CloudFront distribution can read the files. The S3 bucket is private.
+- **AWS Certificate Manager (ACM)**: Manages SSL/TLS certificates for the website.
+- **AWS Route 53**: Manages DNS records for the website.
 
 ## Prerequisites
 
@@ -47,7 +49,7 @@ Type `yes` when prompted to confirm the creation of resources.
 
 ### 3. Access the Website
 
-After the deployment is complete, Terraform (or the AWS Console) will provide the CloudFront Domain Name. You can access your static website using that URL.
+After the deployment is complete, the protfolio website will be avaiable at anirudhs.xyz with https
 
 ## Resources Created
 
@@ -56,6 +58,9 @@ After the deployment is complete, Terraform (or the AWS Console) will provide th
 - `aws_cloudfront_distribution`: CDN configuration.
 - `aws_cloudfront_origin_access_control`: Security configuration for S3-CloudFront integration.
 - `aws_s3_bucket_policy`: Policy to allow CloudFront OAC to access S3 objects.
+- `aws_acm_certificate`: SSL certificate for the website.
+- `aws_route53_record`: Route 53 records for the website.
+- `aws_acm_certificate_validation`: Certificate validation for the website.
 
 ## Cleanup
 
